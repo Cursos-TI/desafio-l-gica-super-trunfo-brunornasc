@@ -1,43 +1,114 @@
-#include <stdio.h>
-
 // Desafio Super Trunfo - Países
 // Tema 2 - Comparação das Cartas
 // Este código inicial serve como base para o desenvolvimento do sistema de comparação de cartas de cidades. 
 // Siga os comentários para implementar cada parte do desafio.
+#include <stdio.h>
+
+struct carta {
+    int cdCidade;
+    char nome[100];
+    int populacao;
+    float area;
+    unsigned int pib;
+    unsigned int ptTuristicos;
+};
+
+struct carta cartas[100];
+
+unsigned int totalCartas = 0;
+
+void cadastrarCarta();
+void listarCartas();
+void printMainMenu();
 
 int main() {
-    // Definição das variáveis para armazenar as propriedades das cidades
-    // Você pode utilizar o código do primeiro desafio
 
-    
-    // Cadastro das Cartas:
-    // Implemente a lógica para solicitar ao usuário que insira os dados das cidades
-    // utilizando a função scanf para capturar as entradas.
-    // utilize o código do primeiro desafio
+    int option = -1;
 
-    // Exemplo:
-    // printf("Digite o código da cidade: ");
-    // scanf("%s", codigo);
-    // 
-    // (Repita para cada propriedade)
+    while (option != 0) {
+        printMainMenu();
 
-    // Comparação de Cartas:
-    // Desenvolva a lógica de comparação entre duas cartas.
-    // Utilize estruturas de decisão como if, if-else para comparar atributos como população, área, PIB, etc.
+        scanf("%d", &option);
 
-    // Exemplo:
-    // if (populacaoA > populacaoB) {
-    //     printf("Cidade 1 tem maior população.\n");
-    // } else {
-    //     printf("Cidade 2 tem maior população.\n");
-    // }
-
-    // Exibição dos Resultados:
-    // Após realizar as comparações, exiba os resultados para o usuário.
-    // Certifique-se de que o sistema mostre claramente qual carta venceu e com base em qual atributo.
-
-    // Exemplo:
-    // printf("A cidade vencedora é: %s\n", cidadeVencedora);
+        switch (option) {
+            case 0:
+                printf("\nFim do programa.\n");
+                continue;
+            case 1:
+                cadastrarCarta();
+                break;
+            case 2:
+                listarCartas();
+                break;
+            default:
+                printf("\nOpção inválida");
+                break;            
+        }
+    }
 
     return 0;
+}
+
+void cadastrarCarta() {
+    if (totalCartas > 99) {
+        printf("\nLimite de cartas atingido.\n");
+        return;
+    }
+
+    struct carta novaCarta;
+
+    printf("Digite o codigo da cidade: ");
+    scanf("%d", &novaCarta.cdCidade);
+    
+    printf("\nDigite o nome da cidade: ");
+    scanf("%s", &novaCarta.nome);
+
+    printf("\nDigite a populacao: ");
+    scanf("%d", &novaCarta.populacao);
+
+    printf("\nDigite a area: ");
+    scanf("%f", &novaCarta.area);
+
+    printf("\nDigite o pib: ");
+    scanf("%d", &novaCarta.pib);
+
+    printf("\nDigite o numero de pontos turisticos: ");
+    scanf("%d", &novaCarta.ptTuristicos);
+
+    cartas[totalCartas++] = novaCarta;
+
+    printf("Carta cadastrada em memoria com sucesso!\n");    
+}
+
+void listarCartas() {
+    printf("\n\n\nListando cartas...");
+
+    for(unsigned int i = 0; i < totalCartas; i++) {
+        printf("\n\nCarta numero %d", i + 1);
+
+        struct carta* card = &cartas[i];
+        printf("\ncodigo da cidade: %d", card->cdCidade);    
+        printf("\nnome da cidade: %s", card->nome);
+        printf("\npopulacao: %d", card->populacao);
+        printf("\narea: %f", card->area);
+        printf("\npib: %d", card->pib);
+        printf("\npontos turisticos: %d", card->ptTuristicos);             
+    
+    }
+   
+}
+
+void printMainMenu() {
+    printf("\n\n\n");
+    printf("##########################################################\n");
+    printf("#                  Cadastro de cartas                    #\n");
+    printf("#                                                        #\n");
+    printf("# Escolha uma opção a seguir:                            #\n");
+    printf("#                                                        #\n");
+    printf("# 1 - Cadastrar nova carta                               #\n");
+    printf("# 2 - Listar cartas cadastradas                          #\n");
+    printf("# 0 - Sair                                               #\n");
+    printf("#                                                        #\n");
+    printf("##########################################################\n");
+    printf("\nEscolha a opção : ");
 }
